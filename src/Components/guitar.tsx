@@ -1,4 +1,6 @@
-export default function Guitar({guitar, addToCart}) {
+import type { Guitar, GuitarProps } from '../types/types'
+
+export default function Guitar({guitar, addToCart} : GuitarProps) {
   
   // Destructuring de guitar
   const { image, name, description, price } = guitar
