@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { useState, useEffect } from "react";
 import { db } from "../data/db";
+import type { Guitar, CartItem } from "../types/types";
 
 const useCart = () => {
 
     //* Recupera el carrito de compras
-    const initialCart = () => {
+    const initialCart = () : CartItem[] => {
         const localStorageCart = localStorage.getItem('cart');
         
         // Comprueba si ya existe un carrito de compras
@@ -23,7 +24,7 @@ const useCart = () => {
     }, [cart])
     
     //* Añadir productos al carrito
-    function addToCart(item) {
+    function addToCart ( item : Guitar ) {
 
         // Comprueba si ya existe ese item en el carrito
         const itemExist = cart.findIndex( guitar => guitar.id === item.id);
@@ -32,8 +33,8 @@ const useCart = () => {
         {
 
         // Agrega el item al carrito, si no existe en el carrito
-        item.quantity = 1;
-        setCart([...cart, item]);
+        const newItem : CartItem = {...item, quantity : 1}
+        setCart([...cart, newItem]);
         
         }else {
         
@@ -51,7 +52,7 @@ const useCart = () => {
     }
 
     //* Eliminar productos del carrito
-    function removeFromCart(id) {
+    function removeFromCart( id : Guitar['id'] ) {
 
         // Filtra las guitarras en el carrito cuyo id sea diferente al que se le pasa a la funcion
         setCart( prevCart => prevCart.filter(guitar => guitar.id !== id) ) 
@@ -59,7 +60,7 @@ const useCart = () => {
     }
 
     //* Incrementa la cantidad de un producto
-    function increaseQuantity(id) {
+    function increaseQuantity(id : Guitar['id']) {
 
         // Crea una copia del carrito he itera sobre ella
         const updatedCart = cart.map( item => {
@@ -86,7 +87,7 @@ const useCart = () => {
 
 
     //* Decrementa la cantidad de un producto
-    function decreaseQuantity(id) {
+    function decreaseQuantity(id : Guitar['id']) {
 
         // Crea una copia del carrito he itera sobre ella
         const updatedCart = cart.map( item => {

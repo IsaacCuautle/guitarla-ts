@@ -10,5 +10,12 @@ export type Guitar = {
 export type GuitarProps = {
     guitar : Guitar, 
     addToCart : (item: Guitar) => void
-  }
-  
+}
+
+// Hereda de Guitarra para type
+export type CartItem = Guitar & {
+    quantity: number
+}
+
+// LookUp
+// export type GuitarID = Guitar['id'];

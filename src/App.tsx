@@ -1,4 +1,4 @@
-import Guitar from "./Components/guitar.js";
+import Guitar from "./Components/Guitar";
 import Header from "./Components/Header";
 import { useCart } from "./hooks/useCart.js";
 
