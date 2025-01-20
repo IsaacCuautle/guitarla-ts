@@ -1,13 +1,15 @@
+import { useReducer } from "react";
+
 import Guitar from "./Components/Guitar";
 import Header from "./Components/Header";
 import { useCart } from "./hooks/useCart.js";
+import { CartReducer, InitialState } from "./reducers/cart-reducer.js";
 
 
 function App() {
 
   // Custom Hook del Carrito de compras
-  const { 
-    data,
+  const {
     cart,
     addToCart,
     removeFromCart,
@@ -17,6 +19,8 @@ function App() {
     isEmpty,
     cartTotal
    } = useCart();
+
+   const [ state, dispatch ] = useReducer( CartReducer, InitialState );
 
   return (
     <>
@@ -40,12 +44,12 @@ function App() {
           {
 
             // Itera sobre cada objeto de la DB
-            data.map( (guitar) => (  
+            state.data.map( (guitar) => (  
               
               <Guitar
                 key={guitar.id}
                 guitar = {guitar}
-                addToCart = {addToCart}
+                dispatch = { dispatch }
               /> 
             
             ))
