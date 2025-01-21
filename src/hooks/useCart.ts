@@ -24,27 +24,7 @@ const useCart = () => {
     //* Añadir productos al carrito
     function addToCart ( item : Guitar ) {
 
-        // Comprueba si ya existe ese item en el carrito
-        const itemExist = cart.findIndex( guitar => guitar.id === item.id);
-
-        if ( itemExist < 0 )
-        {
-
-        // Agrega el item al carrito, si no existe en el carrito
-        const newItem : CartItem = {...item, quantity : 1}
-        setCart([...cart, newItem]);
         
-        }else {
-        
-        // Limita la cantidad del item a añadir
-        if ( cart[itemExist].quantity >= 5) return
-
-        // Incrementa la cantidad del item, si ya existe en el carrito
-        const updatedCart = [...cart];
-        updatedCart[itemExist].quantity++
-        setCart(updatedCart);
-
-        }
 
 
     }
