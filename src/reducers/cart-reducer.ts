@@ -98,7 +98,7 @@ export const CartReducer =
         } else {
         
             // Agrega el item al carrito
-            const newItem : CartItem = {...action.payload.item, quantity : 1}
+            const newItem : CartItem = {...action.payload.item, quantity : MIN_ITEMS}
             updatedCart = [ ...state.cart, newItem ];
 
         };
@@ -116,8 +116,12 @@ export const CartReducer =
     if ( action.type === 'remove-from-cart' ) 
     {
 
+        // Filtra los items en el carrito cuyo id sea diferente 
+        const cart = state.cart.filter( item => item.id !== action.payload.id)
+
         return {
-            ...state
+            ...state,
+            cart 
         };
 
     }

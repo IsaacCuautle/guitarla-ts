@@ -1,5 +1,5 @@
-import { useMemo } from "react";
 import { useState, useEffect } from "react";
+
 import type { Guitar, CartItem } from "../types/types";
 
 const useCart = () => {
@@ -21,21 +21,6 @@ const useCart = () => {
 
     }, [cart])
     
-    //* Añadir productos al carrito
-    function addToCart ( item : Guitar ) {
-
-        
-
-
-    }
-
-    //* Eliminar productos del carrito
-    function removeFromCart( id : Guitar['id'] ) {
-
-        // Filtra las guitarras en el carrito cuyo id sea diferente al que se le pasa a la funcion
-        setCart( prevCart => prevCart.filter(guitar => guitar.id !== id) ) 
-    
-    }
 
     //* Incrementa la cantidad de un producto
     function increaseQuantity(id : Guitar['id']) {
@@ -97,26 +82,13 @@ const useCart = () => {
 
     }
 
-    
-    //* State Derivado
-
-    // Verifica que el carrito esta vacio
-    const isEmpty = useMemo(() => cart.length === 0, [cart]);
-
-    // Calcula el total en el carrito de compras
-    const cartTotal = useMemo( () => cart.reduce( (total, item) => total + (item.quantity * item.price), 0 ), [cart])
-
 
     return {
+
         cart,
-        addToCart,
-        removeFromCart,
         increaseQuantity,
         decreaseQuantity,
-        cleanCart,
-        
-        isEmpty,
-        cartTotal
+        cleanCart
     }
 
 }
