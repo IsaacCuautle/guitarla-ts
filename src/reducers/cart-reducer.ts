@@ -49,7 +49,7 @@ export const CartReducer =
 {
 
     const MAX_ITEMS : number = 5;
-    const MIN_ITEMS : number = 0;
+    const MIN_ITEMS : number = 1;
     
     if ( action.type === 'add-to-cart' ) 
     {
@@ -128,9 +128,32 @@ export const CartReducer =
 
     if ( action.type === 'decrease-quantity' ) 
     {
+        // Crea una copia del carrito he itera sobre ella
+        const cart = state.cart.map( item => {
+
+            // Si el item coincide con el id, incrementa la cantidad de ese item en 1
+            if(item.id === action.payload.id && item.quantity > MIN_ITEMS)
+            {
+
+                return{
+
+                    ...item,
+                    quantity: item.quantity - 1
+
+                }
+
+            }
+
+            // Mantiene los demas elementos
+            return item
+        })
+
 
         return {
-            ...state
+
+            ...state,
+            cart
+
         };
 
     }
@@ -138,8 +161,30 @@ export const CartReducer =
     if ( action.type === 'increase-quantity' ) 
     {
 
+        // Crea una copia del carrito he itera sobre ella
+        const cart = state.cart.map( item => {
+
+            // Si el item coincide con el id, incrementa la cantidad de ese item en 1
+            if(item.id === action.payload.id && item.quantity < MAX_ITEMS)
+            {
+    
+                return{
+                    ...item,
+                    quantity: item.quantity + 1
+                }
+    
+            }
+    
+            // Mantiene los demas elementos
+            return item
+        })
+    
+
         return {
-            ...state
+
+            ...state,
+            cart
+
         };
 
     }

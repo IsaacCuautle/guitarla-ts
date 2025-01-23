@@ -11,8 +11,6 @@ function App() {
   // Custom Hook del Carrito de compras
   const {
 
-    increaseQuantity,
-    decreaseQuantity,
     cleanCart
 
    } = useCart();
@@ -25,11 +23,11 @@ function App() {
       {/* Props */}
 
       <Header
+
         cart = { state.cart }
         dispatch = { dispatch }
-        increaseQuantity = { increaseQuantity }
-        decreaseQuantity = { decreaseQuantity }
         cleanCart = { cleanCart }
+
       />
 
       <main className="container-xl mt-5">
