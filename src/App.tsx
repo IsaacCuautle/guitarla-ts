@@ -1,22 +1,21 @@
+import { useReducer, useEffect } from "react";
+
 import Guitar from "./Components/Guitar";
 import Header from "./Components/Header";
-import { useCart } from "./hooks/useCart.js";
+import { CartReducer, InitialState } from "./reducers/cart-reducer.js";
 
 
 function App() {
 
-  // Custom Hook del Carrito de compras
-  const { 
-    data,
-    cart,
-    addToCart,
-    removeFromCart,
-    increaseQuantity,
-    decreaseQuantity,
-    cleanCart,
-    isEmpty,
-    cartTotal
-   } = useCart();
+  const [ state, dispatch ] = useReducer( CartReducer, InitialState );
+
+  useEffect( () => {
+
+    // Mantiene los productos del carrito de compras
+    localStorage.setItem( 'Cart', JSON.stringify(state.cart) );
+    console.log(localStorage);
+
+  }, [state.cart])
 
   return (
     <>
@@ -24,14 +23,11 @@ function App() {
       {/* Props */}
 
       <Header
-        cart = { cart }
-        removeFromCart = { removeFromCart }
-        increaseQuantity = { increaseQuantity }
-        decreaseQuantity = { decreaseQuantity }
-        cleanCart = { cleanCart }
-        isEmpty = { isEmpty }
-        cartTotal = { cartTotal }
-        />
+
+        cart = { state.cart }
+        dispatch = { dispatch }
+
+      />
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
@@ -40,12 +36,14 @@ function App() {
           {
 
             // Itera sobre cada objeto de la DB
-            data.map( (guitar) => (  
+            state.data.map( (guitar) => (  
               
               <Guitar
+
                 key={guitar.id}
                 guitar = {guitar}
-                addToCart = {addToCart}
+                dispatch = { dispatch }
+
               /> 
             
             ))

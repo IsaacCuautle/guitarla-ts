@@ -1,3 +1,8 @@
+import { Dispatch } from "react"
+
+import { CartActions } from "../reducers/cart-reducer"
+
+
 //* Definicion de Types
 export type Guitar = {
     id : number
@@ -9,7 +14,7 @@ export type Guitar = {
 
 export type GuitarProps = {
     guitar : Guitar, 
-    addToCart : (item: Guitar) => void
+    dispatch : Dispatch<CartActions>
 }
 
 // Hereda de Guitarra para type
