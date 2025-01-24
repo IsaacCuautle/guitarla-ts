@@ -33,10 +33,21 @@ export type CartState = {
 
 }
 
+//* Recupera el carrito de compras
+export const initialCart = () : CartItem[] => {
+    
+    const localStorageCart = localStorage.getItem('Cart');
+    console.log(localStorageCart);
+    
+        
+    // Comprueba si ya existe un carrito de compras
+    return localStorageCart ? JSON.parse(localStorageCart) : []
+}
+
 export const InitialState : CartState = {
     
     data: db,
-    cart: []
+    cart: initialCart()
 
 }
 
@@ -56,7 +67,6 @@ export const CartReducer =
 
         // Comprueba si ya existe ese item en el carrito
         const itemExist = state.cart.find( guitar => guitar.id === action.payload.item.id);
-        console.log(itemExist);
         
         let updatedCart : CartItem[] = [];
 
@@ -192,8 +202,11 @@ export const CartReducer =
     if ( action.type === 'clear-cart' ) 
     {
 
+        const cart = state.cart = [];
+
         return {
-            ...state
+            ...state,
+            cart
         };
 
     }

@@ -1,21 +1,21 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 
 import Guitar from "./Components/Guitar";
 import Header from "./Components/Header";
-import { useCart } from "./hooks/useCart.js";
 import { CartReducer, InitialState } from "./reducers/cart-reducer.js";
 
 
 function App() {
 
-  // Custom Hook del Carrito de compras
-  const {
+  const [ state, dispatch ] = useReducer( CartReducer, InitialState );
 
-    cleanCart
+  useEffect( () => {
 
-   } = useCart();
+    // Mantiene los productos del carrito de compras
+    localStorage.setItem( 'Cart', JSON.stringify(state.cart) );
+    console.log(localStorage);
 
-   const [ state, dispatch ] = useReducer( CartReducer, InitialState );
+  }, [state.cart])
 
   return (
     <>
@@ -26,7 +26,6 @@ function App() {
 
         cart = { state.cart }
         dispatch = { dispatch }
-        cleanCart = { cleanCart }
 
       />
 
@@ -40,9 +39,11 @@ function App() {
             state.data.map( (guitar) => (  
               
               <Guitar
+
                 key={guitar.id}
                 guitar = {guitar}
                 dispatch = { dispatch }
+
               /> 
             
             ))
